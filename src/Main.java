@@ -16,6 +16,8 @@ public class Main {
             System.out.println(Mnozenie.pomnoz(one, two));
         }*/
         //System.out.println(Mnozenie.pomnoz(0.1, -0.2));
-        Chomonimy.generate();
+        //Chomonimy.generate();
+        //Chomonimy.chomonimy("michał stanowski");
+        System.out.println(Mendelejew.convert("he"));
     }
 }
