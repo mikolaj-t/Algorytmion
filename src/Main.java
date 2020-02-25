@@ -15,6 +15,7 @@ public class Main {
             System.out.println(one + " " + two);
             System.out.println(Mnozenie.pomnoz(one, two));
         }*/
-        System.out.println(Mnozenie.pomnoz(0.1, -0.2));
+        //System.out.println(Mnozenie.pomnoz(0.1, -0.2));
+        Chomonimy.generate();
     }
 }
