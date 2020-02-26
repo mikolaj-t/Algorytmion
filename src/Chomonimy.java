@@ -20,7 +20,7 @@ public class Chomonimy {
                 if(zawieraZnaki(line.toLowerCase())){
                     lista.add(line);
                 }
-                line = br.readLine().toLowerCase();
+                line = br.readLine();
             }
             System.out.println("Całość: " + lista.size());
             for(String slowo : lista){

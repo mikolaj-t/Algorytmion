@@ -16,6 +16,7 @@ public class Mendelejew {
 
     public static String convert(String s) {
         boolean poprzednie = false;
+        int dlugoscPoprzedniego = 0;
         StringBuilder sb = new StringBuilder();
         for(int i=0; i<s.length(); i++) {
             if(poprzednie){
@@ -23,22 +24,35 @@ public class Mendelejew {
                 continue;
             }
             if(s.charAt(i) == ' ') {
-                sb.append("**");
+                sb.append("*");
                 continue;
+            }
+            if(i!=0){
+                sb.append("*");
             }
             boolean znaleziono = false;
             for (int j = 1; j <= 118; j++) {
                 if(pierwiastki[j].length() == 1){
                     if(pierwiastki[j].equalsIgnoreCase(s.charAt(i) + "")){
-                        sb.append(j).append("*");
+                        sb.append(j);
                         znaleziono = true;
+                        dlugoscPoprzedniego = 1;
                         break;
                     }
                 }else if(pierwiastki[j].length() == 2){
-                    if((i+1 < s.length()) && pierwiastki[j].equalsIgnoreCase(s.charAt(i) + "" +  s.charAt(i+1))){
-                        sb.append(j).append("*");
+                    if((i+1 < s.length()) && (pierwiastki[j].equalsIgnoreCase(s.charAt(i) + "" +  s.charAt(i+1))) ){
+                        sb.append(j);
                         znaleziono = true;
                         poprzednie = true;
+                        dlugoscPoprzedniego = 2;
+                        break;
+                    }
+                    if((i-1>=0) && (pierwiastki[j].equalsIgnoreCase(s.charAt(i-1)+""+s.charAt(i)))){
+                        System.out.println("T:// " + sb.toString());
+                        sb.replace(sb.length()-dlugoscPoprzedniego-1, sb.length(), "");
+                        sb.append(j);
+                        znaleziono=true;
+                        dlugoscPoprzedniego = 2;
                         break;
                     }
                 }
