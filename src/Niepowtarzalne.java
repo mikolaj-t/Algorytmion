@@ -1,3 +1,5 @@
+//Zadanie 2 - Java Eclipse z javac 7
+
 public class Niepowtarzalne {
     public static boolean niepowtarzalny(String s){
         for(int i = 1; i<=s.length()/2; i++){
@@ -7,10 +9,12 @@ public class Niepowtarzalne {
                 compare=s.substring(j, (j+i));
                 compareTo=s.substring(j+i, j+2*i);
                 if(compare.equals(compareTo)){
+                    System.out.println("nie jest niepowtarzalny, " + compare);
                     return false;
                 }
             }
         }
+        System.out.println("jest niepowtarzalny");
         return true;
     }
 

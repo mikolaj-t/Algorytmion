@@ -1,12 +1,12 @@
+//Zadanie 1 - Java Eclipse z javac 7
+
 import java.util.Random;
 
 public class Widoki {
 
-    //40 iteracji na tablice
-
     private static Random random = new Random();
 
-    public static void generate(){
+    public static void wygeneruj(){
       int[][] tablica = new int[7][7];
 
       for(int i=1; i<6; i++){
@@ -14,7 +14,7 @@ public class Widoki {
               tablica[i][j] = random.nextInt(5) + 1;
           }
       }
-      calculate(tablica);
+      oblicz(tablica);
       for(int i=0; i<7; i++){
           for(int j=0; j<7; j++){
               if (tablica[i][j] == 0) {
@@ -27,15 +27,13 @@ public class Widoki {
       }
     }
 
-    private static void calculate(int[][] t){
-        int ilosc_iteracji=0;
+    private static void oblicz(int[][] t){
         for(int i=1; i<6; i++){
             int lastbig = t[i][1];
             int countbig = 1;
             int lastsmall = t[i][1];
             int countsmall = 1;
             for(int j=2; j<6; j++){
-                ilosc_iteracji++;
                 if(t[i][j] < lastsmall){
                     lastsmall = t[i][j];
                     countsmall++;
@@ -64,7 +62,6 @@ public class Widoki {
             int lastsmall = t[1][j];
             int countsmall = 1;
             for(int i=2; i<6; i++){
-                ilosc_iteracji++;
                 if(t[i][j] < lastsmall){
                     lastsmall = t[i][j];
                     countsmall++;
@@ -87,6 +84,5 @@ public class Widoki {
             t[0][j] = countbig;
             t[6][j] = countsmall;
         }
-        System.out.println(ilosc_iteracji);
     }
 }

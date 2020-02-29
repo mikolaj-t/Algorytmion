@@ -1,17 +1,15 @@
+//Zadanie 4 - Java Eclipse z javac 7
+
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Chomonimy {
 
-    //TODO zrobic ta druga czesc
-
     private static List<String> lista = new ArrayList<>();
 
-    public static void generate(){
+    public static void chomonimy(){
         try {
             File f = new File("resources/slownik.txt");
             BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(f), StandardCharsets.UTF_8));
@@ -22,13 +20,12 @@ public class Chomonimy {
                 }
                 line = br.readLine();
             }
-            System.out.println("Całość: " + lista.size());
             for(String slowo : lista){
-                List<String> chomonimy = chomonimy(slowo);
+                List<String> chomonimy = listaChomonimow(slowo);
                 if(chomonimy != null && !chomonimy.isEmpty()) {
                     for (String chomonim : chomonimy) {
                         if(lista.contains(chomonim)){
-                            System.out.println(slowo + " @ " + chomonim);
+                            System.out.println(slowo + " i " + chomonim);
                         }
                     }
                 }
@@ -37,6 +34,7 @@ public class Chomonimy {
             e.printStackTrace();
         }
     }
+
     private static boolean zawieraZnaki(String s){
         return  s.contains("u") ||
                 s.contains("ó") ||
@@ -50,14 +48,22 @@ public class Chomonimy {
                 s.contains("a");
     }
 
-    //TODO rozpoznawanie H/CH
-
     private static List<String> zawiera(String s){
         String[] literki = new String[]{"u", "ó", "ż", "rz", "ę", "e", "ą", "a"};
         List<String> output = new ArrayList<>();
         for(String l : literki) {
             if (s.contains(l)) {
                 output.add(l);
+            }
+        }
+        for(int i=0; i<s.length(); i++){
+            char c = s.toCharArray()[i];
+            if(c == 'h') {
+                if (i>0 && s.toCharArray()[i-1] == 'c'){
+                    output.add("ch");
+                }else{
+                    output.add("h");
+                }
             }
         }
         return output;
@@ -77,7 +83,7 @@ public class Chomonimy {
         return "";
     }
 
-    public static List<String> chomonimy(String s){
+    public static List<String> listaChomonimow(String s){
         List<String> litery = zawiera(s);
         if(litery.isEmpty()) return null;
         List<String> homonimy = new ArrayList<>();
@@ -86,7 +92,7 @@ public class Chomonimy {
         for(int i=0; i<s.length(); i++){
             char c = s.charAt(i);
             if(c!='h' && c!= 'r' && c!='z'){
-                if(litery.contains(c+"")){
+                if(litery.contains(String.valueOf(c))){
                     szukaneZnaki[i] = true;
                     count++;
                 }
@@ -105,12 +111,10 @@ public class Chomonimy {
                 }
             }
         }
-        //System.out.println("count " + count + " " + (Math.pow(2, count)));
         for(int i=((int)Math.pow(2, count)-1); i>0; i--){
             StringBuilder sb = new StringBuilder();
             int c=-1;
             String binary = zeraNaPocz(Integer.toBinaryString(i), count);
-            //System.out.println(binary);
             for(int j=0; j<s.length(); j++) {
                 if (szukaneZnaki[j]) {
                     c+=1;
@@ -128,7 +132,6 @@ public class Chomonimy {
                 }
             }
             homonimy.add(sb.toString());
-            //System.out.println(sb.toString());
         }
         return homonimy;
     }
